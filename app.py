@@ -77,13 +77,13 @@ with st.expander('Conectar con una base de datos'):
         c1.write('''#### PostgreSQL''')
         c1.image(img_logo)
         choice = st.radio('Conectar base de datos:', ['Interna', 'Externa'])
-        if choice = 'Interna':
+        if choice == 'Interna':
             Postgre = SQL(data_base=st.secrets.postgres.dbname,
                     user_name=st.secrets.postgres.user,
                     password=st.secrets.postgres.password,
                     host=st.secrets.postgres.host,
                     port=st.secrets.postgres.port)
-        elif choice = 'Externa':
+        elif choice == 'Externa':
             host = c2.text_input('Nombre del host')
             port = c2.text_input('Puerto')
             database_name = c2.text_input('Nombre de la base de datos')
