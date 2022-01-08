@@ -108,7 +108,7 @@ with st.expander('Conectar con una base de datos'):
 
 
 if work_choice == 'PostgreSQL':
-    if database_name != '' and user_name != '' and password != '' and host != '' and por != '':
+    if database_name != '' and user_name != '' and password != '' and host != '' and port != '':
         Postgre = SQL(database_name, user_name, password, host, port)
         with st.expander('Tablas cargadas'):
             c1, c2, c3 = st.columns([2, 1, 1])
