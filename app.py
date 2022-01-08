@@ -78,11 +78,12 @@ with st.expander('Conectar con una base de datos'):
         c1.image(img_logo)
         choice = st.radio('Conectar base de datos:', ['Interna', 'Externa'])
         if choice == 'Interna':
-            Postgre = SQL(data_base=st.secrets["postgres"]["dbname"],
-                    user_name=st.secrets["postgres"]["user"],
-                    password=st.secrets["postgres"]["password"],
-                    host=st.secrets["postgres"]["host"],
-                    port=st.secrets["postgres"]["port"])
+            database_name = st.secrets["postgres"]["dbname"]
+            user_name = st.secrets["postgres"]["user"]
+            password = st.secrets["postgres"]["password"]
+            host = st.secrets["postgres"]["host"]
+            port = st.secrets["postgres"]["port"]
+            Postgre = SQL(database_name, user_name, password, host, port)
         elif choice == 'Externa':
             host = c2.text_input('Nombre del host')
             port = c2.text_input('Puerto')
@@ -107,7 +108,7 @@ with st.expander('Conectar con una base de datos'):
 
 
 if work_choice == 'PostgreSQL':
-    if database_name != '' and user_name != '' and password != '':
+    if database_name != '' and user_name != '' and password != '' and host != '' and por != '':
         Postgre = SQL(database_name, user_name, password, host, port)
         with st.expander('Tablas cargadas'):
             c1, c2, c3 = st.columns([2, 1, 1])
