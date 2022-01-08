@@ -3,11 +3,13 @@ import psycopg2
 import pandas as pd
 import re
 from sqlalchemy import create_engine
+import subprocess
 
 
 class SQL():
     def __init__(self, data_base, user_name, password):
         #, user, password
+        subprocess.run(["service postgresql start", "-l"])
         self.conexion = f'dbname={data_base} user={user_name} password={password} host=localhost'
         self.conn_string = f'postgres://{user_name}:{password}@localhost/{data_base}'
         self.db = create_engine(self.conn_string)
