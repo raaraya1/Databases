@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 class SQL():
     def __init__(self, data_base, user_name, password):
         #, user, password
-        self.conexion = f'dbname={data_base} user={user_name} password={password}'
+        self.conexion = f'dbname={data_base} user={user_name} password={password} host=/tmp/'
         self.conn_string = f'postgres://{user_name}:{password}@localhost/{data_base}'
         self.db = create_engine(self.conn_string)
 
