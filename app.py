@@ -76,9 +76,19 @@ with st.expander('Conectar con una base de datos'):
         img_logo = Image.open('img/PostgreSQL.png').resize((200, 200))
         c1.write('''#### PostgreSQL''')
         c1.image(img_logo)
-        database_name = c2.text_input('Nombre de la base de datos')
-        user_name = c2.text_input('Nombre de usuario')
-        password = c2.text_input('Contraseña')
+        choice = st.radio('Conectar base de datos:', ['Interna', 'Externa'])
+        if choice = 'Interna':
+            Postgre = SQL(data_base=st.secrets.postgres.dbname,
+                    user_name=st.secrets.postgres.user,
+                    password=st.secrets.postgres.password,
+                    host=st.secrets.postgres.host,
+                    port=st.secrets.postgres.port)
+        elif choice = 'Externa':
+            host = c2.text_input('Nombre del host')
+            port = c2.text_input('Puerto')
+            database_name = c2.text_input('Nombre de la base de datos')
+            user_name = c2.text_input('Nombre de usuario')
+            password = c2.text_input('Contraseña')
 
     elif work_choice == 'MySQL':
         c1, c2 = st.columns([1, 1])
@@ -98,7 +108,7 @@ with st.expander('Conectar con una base de datos'):
 
 if work_choice == 'PostgreSQL':
     if database_name != '' and user_name != '' and password != '':
-        Postgre = SQL(database_name, user_name, password)
+        Postgre = SQL(database_name, user_name, password, host, port)
         with st.expander('Tablas cargadas'):
             c1, c2, c3 = st.columns([2, 1, 1])
             mostrar_tablas = c1.checkbox('Mostrar tablas', key='mostrar')
