@@ -117,7 +117,7 @@ with st.expander('Conectar con una base de datos'):
         c1.image(img_logo)
         choice = st.radio('Conectar base de datos:', ['Externa', 'Interna'])
         if choice == 'Interna': database_path = 'database.db'
-        elif choice == 'Externa': database_path = c2.file_uploader('Subir archivo de la base de datos')
+        elif choice == 'Externa': database_path = c2.file_uploader('Subir archivo de la base de datos').getvalue()
 
 if work_choice == 'PostgreSQL':
     if database_name != '' and user_name != '' and password != '' and host != '' and port != '':
