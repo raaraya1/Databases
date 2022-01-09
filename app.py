@@ -96,9 +96,20 @@ with st.expander('Conectar con una base de datos'):
         img_logo = Image.open('img/MySQL.png').resize((200, 200))
         c1.write('''#### MySQL''')
         c1.image(img_logo)
-        database_name = c2.text_input('Nombre de la base de datos')
-        user_name = c2.text_input('Nombre de usuario')
-        password = c2.text_input('Contraseña')
+        choice = st.radio('Conectar base de datos:', ['Interna', 'Externa'])
+        if choice == 'Interna':
+            database_name = st.secrets["mysql"]["dbname"]
+            user_name = st.secrets["mysql"]["user"]
+            password = st.secrets["mysql"]["password"]
+            host = st.secrets["mysql"]["host"]
+            port = st.secrets["mysql"]["port"]
+            Postgre = SQL(database_name, user_name, password, host, port)
+        elif choice == 'Externa':
+            host = c2.text_input('Nombre del host')
+            port = c2.text_input('Puerto')
+            database_name = c2.text_input('Nombre de la base de datos')
+            user_name = c2.text_input('Nombre de usuario')
+            password = c2.text_input('Contraseña')
 
     elif work_choice == 'SQLite':
         c1, c2 = st.columns([1, 3])
@@ -131,8 +142,8 @@ if work_choice == 'PostgreSQL':
             if comand != '': Postgre.mostrar_tabla(comand)
 
 elif work_choice == 'MySQL':
-    if database_name != '' and user_name != '' and password != '':
-        mysql = MySQL(database_name, user_name, password)
+    if database_name != '' and user_name != '' and password != '' and host != '' and port != '':
+        mysql = MySQL(data_base, user_name, password, host, port)
         with st.expander('Tablas cargadas'):
             c1, c2, c3 = st.columns([2, 1, 1])
             mostrar_tablas = c1.checkbox('Mostrar tablas', key='mostrar')

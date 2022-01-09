@@ -6,18 +6,20 @@ from sqlalchemy import create_engine
 
 
 class MySQL():
-    def __init__(self, data_base, user_name, password):
-        self.host='localhost'
+    def __init__(self, data_base, user_name, password, host, port):
         self.database = data_base
         self.user_name = user_name
         self.password = password
+        self.host = host
+        self.port = port
         self.engine = create_engine(f'mysql+pymysql://{self.user_name}:{self.password}@{self.host}/{self.database}')
 
     def ejecutar(self, comando):
         conn = mysql.connector.connect(host=self.host,
                                         user=self.user_name,
                                         password=self.password,
-                                        database=self.database)
+                                        database=self.database,
+                                        port=self.port)
         cur = conn.cursor()
         cur.execute(comando)
         conn.commit()
@@ -41,7 +43,8 @@ class MySQL():
         conn = mysql.connector.connect(host=self.host,
                                         user=self.user_name,
                                         password=self.password,
-                                        database=self.database)
+                                        database=self.database,
+                                        port=self.port)
         cur = conn.cursor()
         comando = 'SHOW TABLES;'
         cur.execute(comando)
@@ -89,7 +92,8 @@ class MySQL():
         conn = mysql.connector.connect(host=self.host,
                                         user=self.user_name,
                                         password=self.password,
-                                        database=self.database)
+                                        database=self.database,
+                                        port=self.port)
         cur = conn.cursor()
         cur.execute(comando)
         rows = cur.fetchall()
