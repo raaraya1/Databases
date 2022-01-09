@@ -143,7 +143,7 @@ if work_choice == 'PostgreSQL':
 
 elif work_choice == 'MySQL':
     if database_name != '' and user_name != '' and password != '' and host != '' and port != '':
-        mysql = MySQL(data_base, user_name, password, host, port)
+        mysql = MySQL(database_name, user_name, password, host, port)
         with st.expander('Tablas cargadas'):
             c1, c2, c3 = st.columns([2, 1, 1])
             mostrar_tablas = c1.checkbox('Mostrar tablas', key='mostrar')
