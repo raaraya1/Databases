@@ -12,7 +12,7 @@ class MySQL():
         self.password = password
         self.host = host
         self.port = port
-        self.engine = create_engine(f'mysql+pymysql://{self.user_name}:{self.password}@{self.host}/{self.database}')
+        self.engine = create_engine(f'mysql+pymysql://{self.user_name}:{self.password}@{self.host}:{self.port}/{self.database}')
 
     def ejecutar(self, comando):
         conn = mysql.connector.connect(host=self.host,
