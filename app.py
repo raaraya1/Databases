@@ -76,7 +76,7 @@ with st.expander('Conectar con una base de datos'):
         img_logo = Image.open('img/PostgreSQL.png').resize((200, 200))
         c1.write('''#### PostgreSQL''')
         c1.image(img_logo)
-        choice = st.radio('Conectar base de datos:', ['Interna', 'Externa'])
+        choice = st.radio('Conectar base de datos:', ['Externa', 'Interna'])
         if choice == 'Interna':
             database_name = st.secrets["postgres"]["dbname"]
             user_name = st.secrets["postgres"]["user"]
@@ -96,7 +96,7 @@ with st.expander('Conectar con una base de datos'):
         img_logo = Image.open('img/MySQL.png').resize((200, 200))
         c1.write('''#### MySQL''')
         c1.image(img_logo)
-        choice = st.radio('Conectar base de datos:', ['Interna', 'Externa'])
+        choice = st.radio('Conectar base de datos:', ['Externa', 'Interna'])
         if choice == 'Interna':
             database_name = st.secrets["mysql"]["dbname"]
             user_name = st.secrets["mysql"]["user"]
