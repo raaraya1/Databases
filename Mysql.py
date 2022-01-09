@@ -18,8 +18,7 @@ class MySQL():
         conn = mysql.connector.connect(host=self.host,
                                         user=self.user_name,
                                         password=self.password,
-                                        database=self.database,
-                                        port=self.port)
+                                        database=self.database)
         cur = conn.cursor()
         cur.execute(comando)
         conn.commit()
@@ -43,8 +42,7 @@ class MySQL():
         conn = mysql.connector.connect(host=self.host,
                                         user=self.user_name,
                                         password=self.password,
-                                        database=self.database,
-                                        port=self.port)
+                                        database=self.database)
         cur = conn.cursor()
         comando = 'SHOW TABLES;'
         cur.execute(comando)
@@ -92,8 +90,7 @@ class MySQL():
         conn = mysql.connector.connect(host=self.host,
                                         user=self.user_name,
                                         password=self.password,
-                                        database=self.database,
-                                        port=self.port)
+                                        database=self.database)
         cur = conn.cursor()
         cur.execute(comando)
         rows = cur.fetchall()
