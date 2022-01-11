@@ -8,14 +8,6 @@ from pandas_html import df_html
 from PostgreSQL import SQL
 from Mysql import MySQL
 from sql_lite import sqlite
-import os
-
-# Funcion para guardar los archivos cargados
-def save_uploadedfile(uploadedfile):
-     with open(os.path.join("tmp",uploadedfile.name),"wb") as f:
-         f.write(uploadedfile.getbuffer())
-     return st.success("Saved File:{} to tmp".format(uploadedfile.name))
-
 
 # methods to extract data from internet
 st.write('''
@@ -125,10 +117,6 @@ with st.expander('Conectar con una base de datos'):
         choice = st.radio('Conectar base de datos:', ['Externa', 'Interna'])
         database_path = None
         if choice == 'Interna': database_path = 'database.db'
-        elif choice == 'Externa' and database_path == None:
-            database_path = c2.file_uploader('Subir archivo de la base de datos')
-            database_path = str(database_path)
-            st.write(str(database_path))
 
 if work_choice == 'PostgreSQL':
     if database_name != '' and user_name != '' and password != '' and host != '' and port != '':
