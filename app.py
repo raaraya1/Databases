@@ -122,12 +122,14 @@ if work_choice == 'PostgreSQL':
     if database_name != '' and user_name != '' and password != '' and host != '' and port != '':
         Postgre = SQL(database_name, user_name, password, host, port)
         with st.expander('Tablas cargadas'):
-            c1, c2, c3 = st.columns([2, 1, 1])
+            c1, c2, c3, c4 = st.columns([2, 1, 1, 1])
             mostrar_tablas = c1.checkbox('Mostrar tablas', key='mostrar')
             Importar_tabla = c2.checkbox('Importar tabla', key='importar')
             Eliminar_tabla = c2.checkbox('Eliminar tabla', key='eliminar')
             Primary_key = c3.checkbox('Primary Key', key='primary_key')
             Foreign_Key = c3.checkbox('Foreign Key', key='foreign_key')
+            Change_type = c4.checkbox('Tipo columna', key='type_col')
+
             c1, c2 = st.columns(2)
             with c1.container():
                 if mostrar_tablas: Postgre.todas_las_tablas()
@@ -135,6 +137,7 @@ if work_choice == 'PostgreSQL':
                 if Importar_tabla: Postgre.importar_tabla()
                 elif Eliminar_tabla: Postgre.eliminar_tabla()
                 elif Primary_key: Postgre.primary_key_st()
+                elif Change_type: Postgre.change_datatype_st()
             if Foreign_Key: Postgre.foreign_key_st()
 
         with st.expander('Ejecutar un comando'):
