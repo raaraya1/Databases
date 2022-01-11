@@ -127,7 +127,7 @@ with st.expander('Conectar con una base de datos'):
         if choice == 'Interna': database_path = 'database.db'
         elif choice == 'Externa' and database_path == None:
             database_path = c2.file_uploader('Subir archivo de la base de datos')
-            database_path = f'/tmp/{database_path.name}'
+            database_path = database_path.name
             st.write(str(database_path))
 
 if work_choice == 'PostgreSQL':
