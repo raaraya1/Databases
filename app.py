@@ -15,7 +15,7 @@ st.write('''
 ## Herramientas para extraer informacion
 ''')
 
-extract_choice = st.sidebar.selectbox('Herramientas para extraer informacion',
+extract_choice = st.sidebar.selectbox('web scraping',
                     options=['BeautifulSoup',
                             'MechanicalSoup',
                             'Pandas (read_html)'])
@@ -63,9 +63,9 @@ elif extract_choice == 'Pandas (read_html)':
 
 # Methods to preproced data
 st.write('''
-## Herramientas para almacenar informacion''')
+## Structured Query Language (SQL)''')
 
-work_choice = st.sidebar.selectbox('Herramientas para almacenar informacion',
+work_choice = st.sidebar.selectbox('Structured Query Language (SQL)',
                                     options=['PostgreSQL',
                                     'MySQL',
                                     'SQLite'])
@@ -117,7 +117,7 @@ with st.expander('Conectar con una base de datos'):
         c1.image(img_logo)
         choice = st.radio('Conectar base de datos:', ['Externa', 'Interna'])
         if choice == 'Interna': database_path = 'database.db'
-        elif choice == 'Externa': database_path = c2.file_uploader('Subir archivo de la base de datos').getvalue()
+        elif choice == 'Externa': database_path = c2.file_uploader('Subir archivo de la base de datos').read()
 
 if work_choice == 'PostgreSQL':
     if database_name != '' and user_name != '' and password != '' and host != '' and port != '':
@@ -193,14 +193,3 @@ elif work_choice == 'SQLite':
         with st.expander('Ejecutar un comando'):
             comand = str(st.text_area('Comando de SQL'))
             if comand != '': SQLITE.mostrar_tabla(comand)
-
-
-st.write('''
-## Herramientas para visualizar informacion
-
-En construccion ...
-''')
-
-visualize_choice = st.sidebar.selectbox('Herramientas para visualizar informacion',
-                                        options=['PowerBI',
-                                        'Tableau'])
