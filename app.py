@@ -12,17 +12,17 @@ import os
 
 # Funcion para guardar los archivos cargados
 def save_uploadedfile(uploadedfile):
-     with open(os.path.join("tempDir",uploadedfile.name),"wb") as f:
+     with open(os.path.join("tmp",uploadedfile.name),"wb") as f:
          f.write(uploadedfile.getbuffer())
-     return st.success("Saved File:{} to tempDir".format(uploadedfile.name))
+     return st.success("Saved File:{} to tmp".format(uploadedfile.name))
 
 
 # methods to extract data from internet
 st.write('''
-## Herramientas para extraer informacion
+## Web Scraping
 ''')
 
-extract_choice = st.sidebar.selectbox('web scraping',
+extract_choice = st.sidebar.selectbox('Web Scraping',
                     options=['BeautifulSoup',
                             'MechanicalSoup',
                             'Pandas (read_html)'])
@@ -128,7 +128,7 @@ with st.expander('Conectar con una base de datos'):
         elif choice == 'Externa' and database_path == None:
             database_path = c2.file_uploader('Subir archivo de la base de datos')
             save_uploadedfile(database_path)
-            database_path = os.path.join("tempDir", database_path.name)        
+            database_path = os.path.join("tmp", database_path.name)
 
 if work_choice == 'PostgreSQL':
     if database_name != '' and user_name != '' and password != '' and host != '' and port != '':
