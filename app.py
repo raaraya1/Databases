@@ -9,6 +9,30 @@ from PostgreSQL import SQL
 from Mysql import MySQL
 from sql_lite import sqlite
 
+st.write('''
+        # DATABASES
+
+        En esta DEMO me centré en desarrollar herramientas útiles para la extracción
+        y almacenamiento de datos. Así, al inicio se introducen 3 bibliotecas
+        que normalmente son utilizadas para la extracción de datos contenidos
+        en páginas web y, al final, se presentan programas de SQL que más comúnmente
+        son usados para el tratamiento y almacenamiento de datos.
+
+        **Notas**:
+
+        - Las bibliotecas de SQL se encuentran desarrolladas para trabajar con servidores
+        remotos (con la excepción de SQLite).
+        - El apartado de PostgreSQL se encuentra conectado remotamente a mi cuenta de Heroku.
+        - El apartado de MySQL se encuentra conectado remotamente a mi cuenta de freesqldatabase.
+        - El apartado de SQLite utiliza internamente un archivo de extensión .db como base de datos.
+        - Si se desea trabajar los datos de manera local (localhost) se recomienda clonar el siguiente
+         repositorio (https://github.com/raaraya1/Databases) y ejecutar la aplicación de streamlit
+         desde la línea de comandos. (**recordar tener activados los servicios de postgresql o mysql según corresponda**)
+
+
+        ''')
+
+
 # methods to extract data from internet
 st.write('''
 ## Web Scraping
