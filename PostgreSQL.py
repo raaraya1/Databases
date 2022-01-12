@@ -337,10 +337,9 @@ class SQL():
     def change_datatype_st(self):
         self.todas_las_tablas(show=False)
         lista_tablas = list(self.df_tables['Tablas'])
-        co1, co2, co3 = st.columns(3)
-        nombre_tabla = co1.selectbox('Tabla', options=lista_tablas, key='tabla')
+        nombre_tabla = st.selectbox('Tabla', options=lista_tablas, key='tabla')
 
-        type_options = ['bool', 
+        type_options = ['bool',
         'char',
         'varchar',
         'int',
@@ -349,24 +348,24 @@ class SQL():
         'date',
         'text']
 
-        comando = f'select * from {str(Tabla)}'
+        comando = f'select * from {str(nombre_tabla)}'
         if nombre_tabla != '':
             df = self.mostrar_tabla(comando, show=False)
             columnas = list(df.columns)
-            nombre_columna = co2.selectbox('columna', options=columnas, key='col')
+            nombre_columna = st.selectbox('columna', options=columnas, key='col')
 
             if nombre_columna != '':
-                tipo = co3.selectbox('tipo', options=type_options, key='type')
+                tipo = st.selectbox('tipo', options=type_options, key='type')
 
                 if tipo in ['char', 'varchar']:
-                    size = st.number_input('tamaño')
+                    size = st.number_input('tamaño', min_value=0)
                     tipo = tipo + f'({size})'
 
         if nombre_tabla != '' and nombre_columna != '' and tipo != '':
             cambiar_tipo = st.button('Cambiar tipo')
-            if cambiar_tipo: change_datatype(nombre_tabla, nombre_columna, tipo)
+            if cambiar_tipo: self.change_datatype(nombre_tabla, nombre_columna, tipo)
 
     def change_datatype(self, nombre_tabla, nombre_columna, tipo):
-        comnado = f''' ALTER TABLE {nombre_tabla}
-        ALTER COLUMN {nombre_columna} TYPE {tipo};'''
+        comando = f''' ALTER TABLE "{nombre_tabla}"
+        ALTER COLUMN "{nombre_columna}" TYPE {tipo};'''
         self.ejecutar(comando)
