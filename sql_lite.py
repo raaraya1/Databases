@@ -375,3 +375,65 @@ class sqlite():
         # deshabilitar fk
         comando = 'PRAGMA foreign_keys = OFF;'
         self.ejecutar(comando)
+
+    def change_datatype_st(self):
+        self.todas_las_tablas(show=False)
+        lista_tablas = list(self.df_tables['Tablas'])
+        nombre_tabla = st.selectbox('Tabla', options=lista_tablas, key='tabla')
+
+        type_options = ['bool',
+        'char',
+        'varchar',
+        'int',
+        'decimal',
+        'timestamp',
+        'date',
+        'text']
+
+        comando = f'select * from {str(nombre_tabla)}'
+        if nombre_tabla != '':
+            df = self.mostrar_tabla(comando, show=False)
+            columnas = list(df.columns)
+            nombre_columna = st.selectbox('columna', options=columnas, key='col')
+
+            if nombre_columna != '':
+                tipo = st.selectbox('tipo', options=type_options, key='type')
+
+                if tipo in ['char', 'varchar']:
+                    size = st.number_input('tamaño', min_value=0)
+                    tipo = tipo + f'({size})'
+
+        if nombre_tabla != '' and nombre_columna != '' and tipo != '':
+            cambiar_tipo = st.button('Cambiar tipo')
+            if cambiar_tipo: self.change_datatype(nombre_tabla, nombre_columna, tipo)
+
+
+    def change_datatype(self, nombre_tabla, nombre_columna, tipo):
+        # copiar tabla
+        comando = f'''PRAGMA table_info({nombre_tabla});'''
+        df = self.mostrar_tabla(comando, show=False)
+        ## guardar columnas
+        columnas = list(df['name'])
+        ## guardar tipos
+        tipos = list(df['type'])
+        # guardar copia
+        comando = f'ALTER TABLE {nombre_tabla} RENAME TO old_{nombre_tabla};'
+        self.ejecutar(comando)
+        # Recostruimos la tabla
+        comando = f'''
+        CREATE TABLE {nombre_tabla}
+        ('''
+        for i in range(len(columnas)):
+            if columnas[i] == nombre_columna:
+                comando += f'{nombre_columna} {tipo}, '
+            else:
+                comando += f'{columnas[i]} {tipos[i]}, '
+        comando = comando[:-2]
+        comando += ');'
+        self.ejecutar(comando)
+        # Volvemos a colocar los valores
+        comando = f'INSERT INTO {nombre_tabla} SELECT * FROM old_{nombre_tabla};'
+        self.ejecutar(comando)
+        # eliminamos la antigua Tabla
+        comando = f'drop table old_{nombre_tabla}'
+        self.ejecutar(comando)

@@ -180,12 +180,14 @@ elif work_choice == 'SQLite':
     if database_path != '':
         SQLITE = sqlite(database_path)
         with st.expander('Tablas cargadas'):
-            c1, c2, c3 = st.columns([2, 1, 1])
+            c1, c2, c3, c4 = st.columns([2, 1, 1, 1])
             mostrar_tablas = c1.checkbox('Mostrar tablas', key='mostrar')
             Importar_tabla = c2.checkbox('Importar tabla', key='importar')
             Eliminar_tabla = c2.checkbox('Eliminar tabla', key='eliminar')
             Primary_key = c3.checkbox('Primary Key', key='primary_key')
             Foreign_Key = c3.checkbox('Foreign Key', key='foreign_key')
+            Change_type = c4.checkbox('Tipo columna', key='type_col')
+
             c1, c2 = st.columns(2)
             with c1.container():
                 if mostrar_tablas: SQLITE.todas_las_tablas()
@@ -193,6 +195,7 @@ elif work_choice == 'SQLite':
                 if Importar_tabla: SQLITE.importar_tabla()
                 elif Eliminar_tabla: SQLITE.eliminar_tabla()
                 elif Primary_key: SQLITE.primary_key_st()
+                elif Change_type: SQLITE.change_datatype_st()
             if Foreign_Key: SQLITE.foreign_key_st()
 
         with st.expander('Ejecutar un comando'):
